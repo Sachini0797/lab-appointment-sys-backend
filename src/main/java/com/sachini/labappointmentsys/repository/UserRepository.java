@@ -1,18 +1,16 @@
 package com.sachini.labappointmentsys.repository;
 
-import com.sachini.labappointmentsys.model.User;
-import org.springframework.data.domain.*;
+import com.sachini.labappointmentsys.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+     Optional<User> findByUsername(String username);
 
-    Boolean existsByUsername(String username);
+     Boolean existsByUsername(String username);
 
-    Boolean existsByEmail(String email);
-
-//    Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
-
+     Boolean existsByEmail(String email);
 }

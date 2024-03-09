@@ -1,4 +1,4 @@
-package com.sachini.labappointmentsys.model;
+package com.sachini.labappointmentsys.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user",
+@Table(name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
@@ -32,8 +32,11 @@ public class User {
     @Size(max = 120)
     private String password;
 
-    //        @JsonIgnore
-    private Set<Authority> roles = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -76,11 +79,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Authority> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Authority> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }
