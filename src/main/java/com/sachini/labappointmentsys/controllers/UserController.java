@@ -3,7 +3,6 @@ package com.sachini.labappointmentsys.controllers;
 import com.sachini.labappointmentsys.models.User;
 import com.sachini.labappointmentsys.payload.response.MessageResponse;
 import com.sachini.labappointmentsys.repository.UserRepository;
-import com.sachini.labappointmentsys.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,9 @@ import java.util.Optional;
 @CrossOrigin(value = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/admin")
-public class userController {
+public class UserController {
 
-    private final Logger log = LoggerFactory.getLogger(userController.class);
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserRepository userRepository;
 
