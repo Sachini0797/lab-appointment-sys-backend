@@ -1,6 +1,7 @@
 package com.sachini.labappointmentsys.controllers;
 
 import com.sachini.labappointmentsys.models.User;
+import com.sachini.labappointmentsys.payload.response.MessageResponse;
 import com.sachini.labappointmentsys.repository.UserRepository;
 import com.sachini.labappointmentsys.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
@@ -41,5 +42,17 @@ public class userController {
                 .orElse(null);
         return new ResponseEntity<>(user, HttpStatus.OK); // Return user if found
 
+    }
+
+    @DeleteMapping("/user/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        userRepository.deleteById(id);
+        return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
     }
 }
