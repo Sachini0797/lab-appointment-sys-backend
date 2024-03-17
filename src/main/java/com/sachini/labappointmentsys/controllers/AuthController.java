@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600, allowCredentials="true")
+@CrossOrigin(value = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -83,7 +83,7 @@ public class AuthController {
                     .body("Error: email is already in use!");
         }
 
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getUsername(), signUpRequest.getDesignation(), signUpRequest.getFirstName(), signUpRequest.getLastName(),signUpRequest.getGender(), signUpRequest.getNic(), signUpRequest.getEmail(), signUpRequest.getPhoneNum(), signUpRequest.getAddress(), signUpRequest.getCity(), signUpRequest.getAge(), signUpRequest.getDob(), signUpRequest.getMaritalStatus(), signUpRequest.getRegisteredDate(),encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

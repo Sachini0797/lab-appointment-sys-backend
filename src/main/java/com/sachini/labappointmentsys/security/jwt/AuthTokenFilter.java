@@ -47,7 +47,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}", e);
+             logger.error("Cannot set user authentication: {}", e);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            response.getWriter().write("Authentication failed: " + e.getMessage()); // Provide an error message
+            return;
         }
         filterChain.doFilter(request, response);
     }
