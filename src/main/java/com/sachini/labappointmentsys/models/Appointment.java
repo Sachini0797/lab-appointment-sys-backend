@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,8 +21,8 @@ public class Appointment {
 
     private LocalDate appointmentDate;
 
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     @ManyToOne // Many appointments can have one user
     @JoinColumn(name = "user_id") // Specifies the foreign key column in the database
@@ -48,7 +49,7 @@ public class Appointment {
 
     public Appointment () {}
 
-    public Appointment(String name, LocalDate appointmentDate, LocalDateTime startTime, LocalDateTime endTime, User user, Doctor doctor, LabTechnician labTechnician, Set<LabTest> labTests) {
+    public Appointment(String name, LocalDate appointmentDate, LocalTime startTime, LocalTime endTime, User user, Doctor doctor, LabTechnician labTechnician, Set<LabTest> labTests) {
         this.name = name;
         this.appointmentDate = appointmentDate;
         this.startTime = startTime;
@@ -91,19 +92,19 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-    public LocalDateTime getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 

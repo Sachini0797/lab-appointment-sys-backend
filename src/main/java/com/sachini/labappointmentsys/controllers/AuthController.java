@@ -5,6 +5,7 @@ import com.sachini.labappointmentsys.models.Role;
 import com.sachini.labappointmentsys.models.User;
 import com.sachini.labappointmentsys.payload.request.LoginRequest;
 import com.sachini.labappointmentsys.payload.request.SignupRequest;
+import com.sachini.labappointmentsys.payload.request.UserUpdateRequest;
 import com.sachini.labappointmentsys.payload.response.JwtResponse;
 import com.sachini.labappointmentsys.payload.response.MessageResponse;
 import com.sachini.labappointmentsys.repository.RoleRepository;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -49,7 +51,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -70,25 +72,25 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest){
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())){
+        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body("Error: email is already in use!");
         }
 
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getDesignation(), signUpRequest.getFirstName(), signUpRequest.getLastName(),signUpRequest.getGender(), signUpRequest.getNic(), signUpRequest.getEmail(), signUpRequest.getPhoneNum(), signUpRequest.getAddress(), signUpRequest.getCity(), signUpRequest.getAge(), signUpRequest.getDob(), signUpRequest.getMaritalStatus(), signUpRequest.getRegisteredDate(),encoder.encode(signUpRequest.getPassword()));
+        User user = new User(signUpRequest.getUsername(), signUpRequest.getDesignation(), signUpRequest.getFirstName(), signUpRequest.getLastName(), signUpRequest.getGender(), signUpRequest.getNic(), signUpRequest.getEmail(), signUpRequest.getPhoneNum(), signUpRequest.getAddress(), signUpRequest.getCity(), signUpRequest.getAge(), signUpRequest.getDob(), signUpRequest.getMaritalStatus(), signUpRequest.getRegisteredDate(), signUpRequest.getHeight(), signUpRequest.getWeight(), encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if(strRoles == null){
+        if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERoles.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
@@ -99,14 +101,14 @@ public class AuthController {
                         Role adminRole = roleRepository.findByName(ERoles.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-                    break;
+                        break;
 
                     case "mod":
                         Role modRole = roleRepository.findByName(ERoles.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
 
-                    break;
+                        break;
 
                     default:
                         Role userRole = roleRepository.findByName(ERoles.ROLE_USER)
@@ -125,9 +127,44 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public ResponseEntity<?> logOutUser (){
+    public ResponseEntity<?> logOutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
     }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable Long userId, @Valid @RequestBody UserUpdateRequest userUpdateRequest) {
+        // Retrieve the user from the database
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        User user = optionalUser.get();
+
+        // Update the user fields
+        user.setFirstName(userUpdateRequest.getFirstName());
+        user.setLastName(userUpdateRequest.getLastName());
+        user.setDesignation(userUpdateRequest.getDesignation());
+        user.setGender(userUpdateRequest.getGender());
+        user.setNic(userUpdateRequest.getNic());
+        user.setEmail(userUpdateRequest.getEmail());
+        user.setPassword(userUpdateRequest.getPhoneNum());
+        user.setAddress(userUpdateRequest.getAddress());
+        user.setCity(userUpdateRequest.getCity());
+        user.setAge(userUpdateRequest.getAge());
+        user.setDob(userUpdateRequest.getDob());
+        user.setMaritalStatus(userUpdateRequest.getMaritalStatus());
+        user.setRegisteredDate(userUpdateRequest.getRegisteredDate());
+        user.setHeight(userUpdateRequest.getHeight());
+        user.setWeight(userUpdateRequest.getWeight());
+
+
+        // Apply updates to other fields as needed
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok().body(user);
+    }
+
 }

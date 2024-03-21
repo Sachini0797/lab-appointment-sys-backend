@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(value = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/admin/appointment")
 public class AppointmentController {
@@ -33,7 +34,7 @@ public class AppointmentController {
     @PostMapping("/create")
     public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {
         if (appointmentService.createOrUpdateAppointment(appointment)) {
-            return ResponseEntity.ok("Appointment created/updated successfully");
+            return ResponseEntity.ok( appointment);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Technician not available for the given time slot");
         }

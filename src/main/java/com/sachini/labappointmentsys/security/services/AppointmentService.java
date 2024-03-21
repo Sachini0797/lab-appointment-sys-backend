@@ -53,7 +53,7 @@ public class AppointmentService {
             throw new IllegalArgumentException("Appointment not found");
         }
     }
-    public boolean isTechnicianAvailable(Long technicianId, LocalDate date, LocalDateTime startTime, LocalDateTime endTime) {
+    public boolean isTechnicianAvailable(Long technicianId, LocalDate date, LocalTime startTime, LocalTime endTime) {
         List<Appointment> conflictingAppointments = appointmentRepository.findConflictingAppointments(
                 technicianId, date, startTime, endTime);
         return conflictingAppointments.isEmpty();
@@ -62,8 +62,8 @@ public class AppointmentService {
     public boolean createOrUpdateAppointment(Appointment appointment) {
         Long technicianId = appointment.getLabTechnician().getId();
         LocalDate appointmentDate = appointment.getAppointmentDate();
-        LocalDateTime startTime = appointment.getStartTime();
-        LocalDateTime endTime = appointment.getEndTime();
+        LocalTime startTime = appointment.getStartTime();
+        LocalTime endTime = appointment.getEndTime();
 
         if (isTechnicianAvailable(technicianId, appointmentDate, startTime, endTime)) {
             appointmentRepository.save(appointment);

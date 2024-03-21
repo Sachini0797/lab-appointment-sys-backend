@@ -18,6 +18,7 @@ public class LabTechnician {
 
     private String workingStartTime;
     private String workingEndTime;
+    
 
     LabTechnician(){}
 

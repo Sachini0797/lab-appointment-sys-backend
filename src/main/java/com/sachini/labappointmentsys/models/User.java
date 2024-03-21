@@ -67,6 +67,12 @@ public class User {
     @Size(max = 50)
     private  String registeredDate;
 
+    private  double height;
+    private  double weight;
+
+
+
+
 
     @NotBlank
     @Size(max = 120)
@@ -81,7 +87,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String designation, String firstName, String lastName,String gender, String nic,String email, String phoneNum,String address, String city,String age, String dob, String maritalStatus, String registeredDate,String password) {
+    public User(String username, String designation, String firstName, String lastName,String gender, String nic,String email, String phoneNum,String address, String city,String age, String dob, String maritalStatus, String registeredDate, double height, double weight,String password) {
         this.username = username;
         this.designation = designation;
         this.firstName = firstName;
@@ -96,6 +102,8 @@ public class User {
         this.dob = dob;
         this.maritalStatus = maritalStatus;
         this.registeredDate = registeredDate;
+        this.height = height;
+        this.weight = weight;
         this.password = password;
     }
 
@@ -218,6 +226,23 @@ public class User {
     public void setRegisteredDate(String registeredDate) {
         this.registeredDate = registeredDate;
     }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
 
     public String getPassword() {
         return password;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -19,7 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "(a.endTime BETWEEN :startTime AND :endTime))")
     List<Appointment> findConflictingAppointments(@Param("technicianId") Long technicianId,
                                                   @Param("date") LocalDate date,
-                                                  @Param("startTime") LocalDateTime startTime,
-                                                  @Param("endTime") LocalDateTime endTime);
+                                                  @Param("startTime") LocalTime startTime,
+                                                  @Param("endTime") LocalTime endTime);
 }
 
