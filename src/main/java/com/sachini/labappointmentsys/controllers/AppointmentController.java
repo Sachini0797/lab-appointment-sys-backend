@@ -3,6 +3,7 @@ package com.sachini.labappointmentsys.controllers;
 import com.sachini.labappointmentsys.models.Appointment;
 import com.sachini.labappointmentsys.repository.AppointmentRepository;
 import com.sachini.labappointmentsys.security.services.AppointmentService;
+import com.sachini.labappointmentsys.security.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class AppointmentController {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private EmailService emailService;
+
 //    @PostMapping("/create")
 //    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
 //        Appointment createdAppointment = appointmentService.createAppointment(appointment);
@@ -34,6 +38,9 @@ public class AppointmentController {
     @PostMapping("/create")
     public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {
         if (appointmentService.createOrUpdateAppointment(appointment)) {
+            emailService.sendAppointmentEmail(appointment.getUser().getEmail(), appointment.getUser().getId(),appointment.getId() , appointment.getUser().getUsername(), appointment.getAppointmentDate(), appointment.getStartTime(), appointment.getEndTime());
+
+
             return ResponseEntity.ok( appointment);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Technician not available for the given time slot");

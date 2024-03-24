@@ -24,6 +24,8 @@ public class Appointment {
     private LocalTime startTime;
     private LocalTime endTime;
 
+
+
     @ManyToOne // Many appointments can have one user
     @JoinColumn(name = "user_id") // Specifies the foreign key column in the database
     private User user; // The user who scheduled the appointment

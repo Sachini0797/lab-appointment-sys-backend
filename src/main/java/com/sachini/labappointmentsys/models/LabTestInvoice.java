@@ -22,13 +22,13 @@ public class LabTestInvoice {
     private double totalAmount;
     private double paidAmount;
     private double dueAmount;
-    private double remarks;
+    private String remarks;
 
-    private double paymentStatus;
+    private String paymentStatus;
 
     public LabTestInvoice() {}
 
-    public LabTestInvoice(Appointment appointment, LocalDateTime generatedAt, double billAmount, double discount, double totalAmount, double paidAmount, double dueAmount, double remarks, double paymentStatus) {
+    public LabTestInvoice(Appointment appointment, LocalDateTime generatedAt, double billAmount, double discount, double totalAmount, double paidAmount, double dueAmount, String remarks, String paymentStatus) {
         this.appointment = appointment;
         this.generatedAt = generatedAt;
         this.billAmount = billAmount;
@@ -104,19 +104,19 @@ public class LabTestInvoice {
         this.dueAmount = dueAmount;
     }
 
-    public double getRemarks() {
+    public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(double remarks) {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
-    public double getPaymentStatus() {
+    public String getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(double paymentStatus) {
+    public void setPaymentStatus(String paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 }
