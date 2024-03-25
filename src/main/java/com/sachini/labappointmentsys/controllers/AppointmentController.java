@@ -29,12 +29,6 @@ public class AppointmentController {
     @Autowired
     private EmailService emailService;
 
-//    @PostMapping("/create")
-//    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
-//        Appointment createdAppointment = appointmentService.createAppointment(appointment);
-//        return new ResponseEntity<>(createdAppointment, HttpStatus.CREATED);
-//    }
-
     @PostMapping("/create")
     public ResponseEntity<?> createAppointment(@RequestBody Appointment appointment) {
         if (appointmentService.createOrUpdateAppointment(appointment)) {
@@ -59,21 +53,6 @@ public class AppointmentController {
         return ResponseEntity.ok(appointments);
     }
 
-//    @PutMapping("/updatea/{id}")
-//    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment updatedAppointment) {
-//        Appointment appointment = appointmentService.updateAppointment(id, updatedAppointment);
-//        return ResponseEntity.ok(appointment);
-//    }
-
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<Object> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
-//        boolean isAppointmentUpdated = appointmentService.createOrUpdateAppointment(appointment);
-//        if (isAppointmentUpdated) {
-//            return ResponseEntity.ok(Map.of("appointment", appointment, "message", "Appointment updated successfully"));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Technician not available for the given time slot"));
-//        }
-//    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateAppointment(@PathVariable("id") Long id, @RequestBody Appointment appointmentDetails) {
