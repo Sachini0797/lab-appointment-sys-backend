@@ -15,6 +15,8 @@ public class AlkalinePhosphatase {
 
     private Long uid;
     private Long appointmentId;
+
+    private Long testNo;
     private Boolean completed;
     private LocalDateTime createdDate;
     private LocalDateTime sampleCollectedDate;
@@ -28,9 +30,10 @@ public class AlkalinePhosphatase {
     public AlkalinePhosphatase() {
      }
 
-    public AlkalinePhosphatase(Long uid, Long appointmentId, Boolean completed, LocalDateTime createdDate, LocalDateTime sampleCollectedDate, LocalDateTime sampleReceivedDate, LocalDateTime reportAuthorizedDate, Double alkalinePhosphataseValue, String refNo, String refBy, String remarks) {
+    public AlkalinePhosphatase(Long uid, Long appointmentId, Long testNo, Boolean completed, LocalDateTime createdDate, LocalDateTime sampleCollectedDate, LocalDateTime sampleReceivedDate, LocalDateTime reportAuthorizedDate, Double alkalinePhosphataseValue, String refNo, String refBy, String remarks) {
         this.uid = uid;
         this.appointmentId = appointmentId;
+        this.testNo = testNo;
         this.completed = completed;
         this.createdDate = createdDate;
         this.sampleCollectedDate = sampleCollectedDate;
@@ -64,6 +67,14 @@ public class AlkalinePhosphatase {
 
     public void setAppointmentId(Long appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public Long getTestNo() {
+        return testNo;
+    }
+
+    public void setTestNo(Long testNo) {
+        this.testNo = testNo;
     }
 
     public Boolean getCompleted() {

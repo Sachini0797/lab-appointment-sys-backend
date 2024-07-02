@@ -14,6 +14,7 @@ public class BloodUrea {
     private Long id;
 
     private Long appointmentId; // New attribute
+    private Long testNo;
 
     private Long uid;
     private Boolean completed;
@@ -29,8 +30,9 @@ public class BloodUrea {
     public BloodUrea() {
      }
 
-    public BloodUrea(Long appointmentId, Long uid, Boolean completed, LocalDateTime createdDate, LocalDateTime sampleCollectedDate, LocalDateTime sampleReceivedDate, LocalDateTime reportAuthorizedDate, Double bloodUreaValue, String refNo, String refBy, String remarks) {
+    public BloodUrea(Long appointmentId,Long testNo, Long uid, Boolean completed, LocalDateTime createdDate, LocalDateTime sampleCollectedDate, LocalDateTime sampleReceivedDate, LocalDateTime reportAuthorizedDate, Double bloodUreaValue, String refNo, String refBy, String remarks) {
         this.appointmentId = appointmentId;
+        this.testNo = testNo;
         this.uid = uid;
         this.completed = completed;
         this.createdDate = createdDate;
@@ -57,6 +59,14 @@ public class BloodUrea {
 
     public void setAppointmentId(Long appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public Long getTestNo() {
+        return testNo;
+    }
+
+    public void setTestNo(Long testNo) {
+        this.testNo = testNo;
     }
 
     public Long getUid() {

@@ -55,8 +55,8 @@ public class WebSecurityConfig {
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/api/report/**").hasRole("ADMIN")
-                                .anyRequest().authenticated());
+                                .requestMatchers("/api/report/**").permitAll()
+                                 .anyRequest().authenticated());
         http.authenticationProvider(authenticationProvider());
 
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -1,5 +1,6 @@
 package com.sachini.labappointmentsys.security.services;
 
+import com.sachini.labappointmentsys.models.AlkalinePhosphatase;
 import com.sachini.labappointmentsys.models.BloodUrea;
 import com.sachini.labappointmentsys.repository.BloodUreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,14 @@ public class BloodUreaService {
 
     public Optional<BloodUrea> getBloodUreaById(Long id) {
         return bloodUreaRepository.findById(id);
+    }
+
+    public BloodUrea findByUniqueIdentifier(Long appointmentId) {
+         return bloodUreaRepository.findByAppointmentId(appointmentId); // Replace with your actual query
+    }
+
+    public List<BloodUrea> getReportsForUid(Long uid) {
+        return bloodUreaRepository.findAllByUid(uid);
     }
 
     public BloodUrea createBloodUrea(BloodUrea bloodUrea) {

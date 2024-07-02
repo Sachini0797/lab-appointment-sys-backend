@@ -21,6 +21,14 @@ public class AlkalinePhosphataseService {
         return alkalinePhosphataseRepository.findById(id);
     }
 
+    public AlkalinePhosphatase findByUniqueIdentifier(Long appointmentId) {
+        // Implement logic to find AlkalinePhosphatase by appointmentId using your repository
+        return alkalinePhosphataseRepository.findByAppointmentId(appointmentId);
+    }
+
+    public List<AlkalinePhosphatase> getReportsForUid(Long uid) {
+        return alkalinePhosphataseRepository.findAllByUid(uid);
+    }
     public AlkalinePhosphatase createAlkalinePhosphatase(AlkalinePhosphatase alkalinePhosphatase) {
         return alkalinePhosphataseRepository.save(alkalinePhosphatase);
     }
@@ -40,4 +48,12 @@ public class AlkalinePhosphataseService {
         }
         return false;
     }
+
+//    public List<AlkalinePhosphatase> findByAppointmentIdAndLabTestId(Long appointmentId, Long testNo) {
+//        return alkalinePhosphataseRepository.findByAppointmentIdAndLabTestId(appointmentId, testNo);
+//    }
+
+//    public AlkalinePhosphatase findOneByAppointmentId(Long appointmentId) {
+//        return alkalinePhosphataseRepository.findByAppointmentId(appointmentId);
+//    }
 }
